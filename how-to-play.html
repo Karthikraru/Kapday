@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Play - Location Hints Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .title {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .instructions-section {
+            margin-bottom: 40px;
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .instruction-item {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .instruction-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .instruction-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .instruction-item h3 {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .instruction-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .start-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .start-hint {
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 2em;
+            }
+            
+            .instructions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🎯</div>
+            <h1 class="title">How to Play</h1>
+            <p class="subtitle">Explore your favorite spots in Louisville</p>
+        </div>
+
+        <div class="instructions-section">
+            <div class="instructions-grid">
+                <div class="instruction-item">
+                    <div class="instruction-icon">🔒</div>
+                    <h3>Progressive Hints</h3>
+                    <p>Only the current hint is visible - others are locked until you solve the previous one. Each hint builds on the last!</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon">📝</div>
+                    <h3>Read the Clue</h3>
+                    <p>Hint descriptions are visible immediately when the hint becomes available. Read carefully - every detail matters!</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon">📍</div>
+                    <h3>Find the Location</h3>
+                    <p>Visit the actual location to see the location name and solve the hint. Your GPS will guide you there!</p>
+                </div>
+                <div class="instruction-item">
+                    <div class="instruction-icon">💡</div>
+                    <h3>Get Help</h3>
+                    <p>Use the additional hint button for extra guidance when you're stuck. Sometimes you need a little nudge!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="start-section">
+            <button class="start-btn" id="startBtn">🚀 Start Your Adventure</button>
+            <p class="start-hint">Time to explore Louisville!</p>
+        </div>
+    </div>
+
+    <script>
+        // Check if user has passed passcode
+        if (localStorage.getItem('passcodeVerified') !== 'true') {
+            window.location.href = 'passcode.html';
+        }
+        
+        // Check if user has completed collage
+        if (localStorage.getItem('collageCompleted') !== 'true') {
+            window.location.href = 'collage.html';
+        }
+
+        // Start adventure button
+        document.getElementById('startBtn').addEventListener('click', function() {
+            // Set flag that user has seen the how to play page
+            localStorage.setItem('hasSeenHowToPlay', 'true');
+            
+            // Redirect to main game
+            window.location.href = 'index.html';
+        });
+
+        // Add some interactive animations
+        document.querySelectorAll('.instruction-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Hints Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗺️ Location Hints Adventure</h1>
+            <p class="subtitle">Solve hints by visiting locations or use the override code</p>
+            <button id="howToPlayBtn" class="how-to-play-btn">❓ How to Play</button>
+        </header>
+
+        <div class="progress-section">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <p class="progress-text">Progress: <span id="progressText">0/0</span></p>
+            <button id="resetProgress" class="reset-btn">🔄 Reset Progress</button>
+        </div>
+
+        <div class="hints-container" id="hintsContainer">
+            <!-- Hints will be dynamically generated here -->
+        </div>
+
+        <div class="override-section">
+            <h3>🔓 Override Code</h3>
+            <div class="override-input">
+                <input type="text" id="overrideCode" placeholder="Enter override code" maxlength="10">
+                <button id="submitOverride">Submit</button>
+            </div>
+            <p class="override-hint">Use this to unlock hints without visiting locations</p>
+        </div>
+
+        <div class="location-status">
+            <div class="status-indicator" id="locationStatus">
+                <span class="status-icon">📍</span>
+                <span class="status-text">Checking location...</span>
+            </div>
+            <button id="checkLocation" class="check-btn">Check Current Location</button>
+        </div>
+    </div>
+
+    <script>
+        // Check if user has passed passcode verification
+        if (localStorage.getItem('passcodeVerified') !== 'true') {
+            window.location.href = 'passcode.html';
+        }
+        
+        // Check if user has completed collage
+        if (localStorage.getItem('collageCompleted') !== 'true') {
+            window.location.href = 'collage.html';
+        }
+
+        // Check if user has seen how to play page
+        if (localStorage.getItem('hasSeenHowToPlay') !== 'true') {
+            window.location.href = 'how-to-play.html';
+        }
+    </script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

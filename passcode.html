@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Passcode - Location Hints Adventure</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .passcode-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .passcode-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .passcode-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .passcode-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="passcode-container">
+        <div class="logo">🎯</div>
+        <h1 class="title">Enter Passcode</h1>
+        <form class="passcode-form" id="passcodeForm">
+            <div class="input-group">
+                <input 
+                    type="password" 
+                    class="passcode-input" 
+                    id="passcodeInput" 
+                    placeholder="Enter passcode"
+                    autocomplete="off"
+                    required
+                >
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+            <div class="error-message" id="errorMessage">Incorrect passcode. Please try again.</div>
+        </form>
+    </div>
+
+    <script>
+        const CORRECT_PASSCODE = 'Kappy20';
+        
+        document.getElementById('passcodeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const input = document.getElementById('passcodeInput');
+            const errorMessage = document.getElementById('errorMessage');
+            const container = document.querySelector('.passcode-container');
+            
+            if (input.value === CORRECT_PASSCODE) {
+                // Store that user has passed the passcode check
+                localStorage.setItem('passcodeVerified', 'true');
+                
+                // Redirect to collage page
+                window.location.href = 'collage.html';
+            } else {
+                // Show error
+                errorMessage.classList.add('show');
+                container.classList.add('shake');
+                input.value = '';
+                input.focus();
+                
+                // Remove shake animation after it completes
+                setTimeout(() => {
+                    container.classList.remove('shake');
+                }, 500);
+            }
+        });
+
+        // Check if user has already verified passcode
+        if (localStorage.getItem('passcodeVerified') === 'true') {
+            window.location.href = 'collage.html';
+        }
+
+        // Focus on input when page loads
+        document.getElementById('passcodeInput').focus();
+    </script>
+</body>
+</html> 

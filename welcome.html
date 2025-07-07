@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Location Hints Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="welcome-container">
+        <div class="welcome-card">
+            <header class="welcome-header">
+                <h1>🗺️ Location Hints Adventure</h1>
+                <p class="welcome-subtitle">Welcome to your mysterious journey through the city!</p>
+            </header>
+
+            <div class="welcome-content">
+                <div class="welcome-section">
+                    <h2>🎯 How to Play</h2>
+                    <div class="instructions-grid">
+                        <div class="instruction-item">
+                            <div class="instruction-icon">🔒</div>
+                            <h3>Progressive Hints</h3>
+                            <p>Only the current hint is visible - others are locked until solved</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">📝</div>
+                            <h3>Read the Clue</h3>
+                            <p>Hint descriptions are visible immediately when the hint becomes available</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">📍</div>
+                            <h3>Find the Location</h3>
+                            <p>Visit the location to see the location name and solve the hint</p>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">💡</div>
+                            <h3>Get Help</h3>
+                            <p>Use the additional hint button for extra guidance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="welcome-actions">
+                <button id="startAdventure" class="start-btn">🚀 Start Your Adventure</button>
+                <p class="welcome-hint">Click to begin your mysterious journey!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user has passed passcode verification
+        if (localStorage.getItem('passcodeVerified') !== 'true') {
+            window.location.href = 'passcode.html';
+        }
+        
+        // Check if user has completed collage
+        if (localStorage.getItem('collageCompleted') !== 'true') {
+            window.location.href = 'collage.html';
+        }
+
+        // Check if user has seen how to play page
+        if (localStorage.getItem('hasSeenHowToPlay') !== 'true') {
+            window.location.href = 'how-to-play.html';
+        }
+
+        document.getElementById('startAdventure').addEventListener('click', () => {
+            // Check if user has visited before
+            const hasVisited = localStorage.getItem('hasVisitedBefore');
+            
+            if (!hasVisited) {
+                // First time visitor - show instructions
+                localStorage.setItem('hasVisitedBefore', 'true');
+            }
+            
+            // Redirect to main game
+            window.location.href = 'index.html';
+        });
+
+        // Check if user has visited before and skip welcome if they have
+        window.addEventListener('load', () => {
+            const hasVisited = localStorage.getItem('hasVisitedBefore');
+            if (hasVisited) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html> 
