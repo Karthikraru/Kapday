@@ -32,15 +32,6 @@ A progressive location-based hint system that reveals hints only after visiting 
 - Click "Submit" to unlock the hint without visiting the location
 - Override codes are provided for testing and accessibility
 
-### Current Hints
-
-The system includes 5 sample hints based on New York City locations:
-
-1. **Central Park** - Override: `START123`
-2. **Public Library** - Override: `BOOK456`
-3. **Hudson River Park** - Override: `RIVER789`
-4. **Empire State Building** - Override: `SKY101`
-5. **Times Square** - Override: `FINAL202`
 
 ## Technical Details
 
